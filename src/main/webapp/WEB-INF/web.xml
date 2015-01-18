@@ -16,6 +16,11 @@
        <listener-class>     
            org.springframework.web.util.Log4jConfigListener     
        </listener-class>     
+   </listener>   
+   <listener>     
+       <listener-class>     
+           com.hhwy.webapp1.core.ApplicationConfigListener     
+       </listener-class>     
    </listener> 
 
 	<filter>
