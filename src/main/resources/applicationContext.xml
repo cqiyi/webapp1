@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 	<!-- 配置数据源 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
 		<property name="driverClass" value="org.sqlite.JDBC" />
 		<property name="jdbcUrl" value="jdbc:sqlite:system.db" />
 	</bean>
 
 	<!-- 事务管理器 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<bean id="ebeanServerConfig" class="com.avaje.ebean.config.ServerConfig">
-		<property name="name" value="systemEbeanServerConfig" />
+		<property name="name" value="system" />
 		<property name="dataSource" ref="dataSource" />
+		<property name="ddlGenerate" value="true" />
+		<!-- <property name="ddlRun" value="true" /> <property name="packages"> 
+			<list> <value>com.hhwy.webapp1.model</value> </list> </property> -->
 	</bean>
 
-	<bean id="ebean" class="com.avaje.ebean.springsupport.factory.EbeanServerFactoryBean">
+	<bean id="ebean"
+		class="com.avaje.ebean.springsupport.factory.EbeanServerFactoryBean">
 		<property name="serverConfig" ref="ebeanServerConfig" />
 	</bean>
 
