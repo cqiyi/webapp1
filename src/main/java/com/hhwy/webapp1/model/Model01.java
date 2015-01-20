@@ -188,9 +188,4 @@ public class Model01 {
 
 	@Version
 	private Integer version;
-
-	@Override
-	public String toString() {
-		return JSON.toJSONString(this, Utility.defaultJsonFeatures);
-	}
 }

@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.springsupport.factory.EbeanServerFactoryBean;
+import com.avaje.ebean.text.json.JsonContext;
 
-public abstract class BaseController {
+public abstract class ModelController {
 
 	@Autowired
 	private EbeanServerFactoryBean ebean;
@@ -18,5 +19,14 @@ public abstract class BaseController {
 			RuntimeException ex = new RuntimeException(e);
 			throw ex;
 		}
+	}
+
+	private JsonContext jsonContext;
+
+	public JsonContext getJsonContext() {
+		if (jsonContext == null) {
+			jsonContext = getEbean().createJsonContext();
+		}
+		return jsonContext;
 	}
 }

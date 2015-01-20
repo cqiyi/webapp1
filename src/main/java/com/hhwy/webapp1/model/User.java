@@ -12,48 +12,47 @@ import com.hhwy.webapp1.core.Utility;
 @Entity
 @Table(name = "t_user")
 public class User {
-
 	@Id
 	private String id = Utility.getRandomUUID();
-	
+
 	/*
 	 * 登录用户名
 	 */
 	private String loginName;
-	
+
 	/*
 	 * 显示名/姓名
 	 */
 	private String displayName;
-	
+
 	/*
 	 * 密码，加密后的
 	 */
 	private String password;
-	
+
 	/*
 	 * 密码混淆码
 	 */
 	private String salt;
-	
+
 	/*
 	 * 解锁时间
 	 */
 	private Date lockExpirationTime;
-	
+
 	/*
 	 * 认证用户组
 	 */
 	private AuthorizationGroup authorizationLevel;
-	
+
 	@Version
 	private Integer version;
-	
+
 	/*
 	 * 最后登录时间
 	 */
 	private Date lastLogined;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -146,11 +145,9 @@ public class User {
 	 * 下次登录必须修改密码
 	 */
 	private boolean mustChangePassword;
-	
+
 	/*
 	 * 描述
 	 */
 	private String description;
-	
-	
 }

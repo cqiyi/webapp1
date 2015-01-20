@@ -12,8 +12,8 @@ import com.hhwy.webapp1.model.Model01;
 import com.hhwy.webapp1.model.User;
 
 @Controller
-@RequestMapping(value = "/api/model01", produces = "application/json;charset=UTF-8")
-public class Model01Controller extends ModelController {
+@RequestMapping(value = "/api/user", produces = "application/json;charset=UTF-8")
+public class UserController extends ModelController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody Model01 get() {
@@ -24,21 +24,13 @@ public class Model01Controller extends ModelController {
 
 	@RequestMapping(value = "hello", method = RequestMethod.GET)
 	public @ResponseBody String hello() throws Exception {
-		Model01 m01 = new Model01();
-		m01.setStr01("这是一个字符串");
-
 		User u = new User();
 //		u.setAuthorizationLevel(AuthorizationGroup.General);
 		u.setDisplayName("张三");
-		
-		m01.setCurrentUser(u);
 
-		getEbean().save(m01);
+		getEbean().save(u);
 
-		m01.setDate01(new Date());
-		getEbean().save(m01);
-
-		Model01 m02 = getEbean().find(Model01.class, m01.getId());
+		User m02 = getEbean().find(User.class, u.getId());
 		return m02.toString();
 	}
 }

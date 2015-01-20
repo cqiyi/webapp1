@@ -11,7 +11,7 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="org.sqlite.JDBC" />
-		<property name="jdbcUrl" value="jdbc:sqlite:system.db" />
+		<property name="jdbcUrl" value="jdbc:sqlite:D:/system.db" />
 	</bean>
 
 	<!-- 事务管理器 -->
@@ -24,8 +24,9 @@
 		<property name="name" value="system" />
 		<property name="dataSource" ref="dataSource" />
 		<property name="ddlGenerate" value="true" />
-		<!-- <property name="ddlRun" value="true" /> <property name="packages"> 
-			<list> <value>com.hhwy.webapp1.model</value> </list> </property> -->
+		<!-- 
+		<property name="ddlRun" value="true" /> 
+		 -->
 	</bean>
 
 	<bean id="ebean"

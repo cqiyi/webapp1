@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -31,6 +32,17 @@ public class Model02 {
 
 	private Date date01;
 	private Date date02;
+	
+	@OneToOne
+	private Model03 model;
+
+	public Model03 getModel() {
+		return model;
+	}
+
+	public void setModel(Model03 model) {
+		this.model = model;
+	}
 
 	public String getId() {
 		return id;
@@ -176,9 +188,4 @@ public class Model02 {
 
 	@Version
 	private Integer version;
-
-	@Override
-	public String toString() {
-		return JSON.toJSONString(this, Utility.defaultJsonFeatures);
-	}
 }
