@@ -1,19 +1,23 @@
-package com.hhwy.webapp1.controller;
+package com.hhwy.webapp1.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.springsupport.factory.EbeanServerFactoryBean;
 import com.avaje.ebean.text.json.JsonContext;
 
-public abstract class ModelController {
+public class ModelController {
 
 	@Autowired
-	private EbeanServerFactoryBean ebean;
+	public JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	private EbeanServerFactoryBean ebeanServerFactory;
 
 	public EbeanServer getEbean() {
 		try {
-			return ebean.getObject();
+			return ebeanServerFactory.getObject();
 		} catch (Exception e) {
 			e.printStackTrace();
 			RuntimeException ex = new RuntimeException(e);
@@ -21,12 +25,12 @@ public abstract class ModelController {
 		}
 	}
 
-	private JsonContext jsonContext;
+	private JsonContext jc;
 
 	public JsonContext getJsonContext() {
-		if (jsonContext == null) {
-			jsonContext = getEbean().createJsonContext();
+		if (jc == null) {
+			jc = getEbean().createJsonContext();
 		}
-		return jsonContext;
+		return jc;
 	}
 }

@@ -10,8 +10,14 @@
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
-		<property name="driverClass" value="org.sqlite.JDBC" />
-		<property name="jdbcUrl" value="jdbc:sqlite:D:/system.db" />
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/db_app1" />
+		<property name="user" value="root" />
+		<property name="password" value="qqwQQW" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<!-- 事务管理器 -->
@@ -25,7 +31,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="ddlGenerate" value="true" />
 		<!-- 
-		<property name="ddlRun" value="true" /> 
+		<property name="ddlRun" value="true" />
 		 -->
 	</bean>
 

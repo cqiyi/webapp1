@@ -1,65 +1,58 @@
 package com.hhwy.webapp1.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
-import com.hhwy.webapp1.core.Utility;
+import com.hhwy.webapp1.core.BaseModel;
 
+/*
+ * 系统登录用户
+ */
 @Entity
 @Table(name = "t_user")
-public class User {
-	@Id
-	private String id = Utility.getRandomUUID();
+public class User extends BaseModel {
 
 	/*
 	 * 登录用户名
 	 */
+	@Column(length = SHORT, unique = true, nullable = false)
 	private String loginName;
 
 	/*
 	 * 显示名/姓名
 	 */
+	@Column(length = SHORT)
 	private String displayName;
 
 	/*
 	 * 密码，加密后的
 	 */
+	@Column(length = MIDDLE)
 	private String password;
 
 	/*
 	 * 密码混淆码
 	 */
+	@Column(length = SHORT)
 	private String salt;
 
 	/*
 	 * 解锁时间
 	 */
-	private Date lockExpirationTime;
+	private Timestamp lockExpirationTime;
 
 	/*
 	 * 认证用户组
 	 */
 	private AuthorizationGroup authorizationLevel;
 
-	@Version
-	private Integer version;
-
 	/*
 	 * 最后登录时间
 	 */
-	private Date lastLogined;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	private Timestamp lastLogined;
 
 	public String getLoginName() {
 		return loginName;
@@ -93,11 +86,11 @@ public class User {
 		this.salt = salt;
 	}
 
-	public Date getLockExpirationTime() {
+	public Timestamp getLockExpirationTime() {
 		return lockExpirationTime;
 	}
 
-	public void setLockExpirationTime(Date lockExpirationTime) {
+	public void setLockExpirationTime(Timestamp lockExpirationTime) {
 		this.lockExpirationTime = lockExpirationTime;
 	}
 
@@ -109,19 +102,11 @@ public class User {
 		this.authorizationLevel = authorizationLevel;
 	}
 
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
-
-	public Date getLastLogined() {
+	public Timestamp getLastLogined() {
 		return lastLogined;
 	}
 
-	public void setLastLogined(Date lastLogined) {
+	public void setLastLogined(Timestamp lastLogined) {
 		this.lastLogined = lastLogined;
 	}
 
@@ -133,21 +118,9 @@ public class User {
 		this.mustChangePassword = mustChangePassword;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	/*
 	 * 下次登录必须修改密码
 	 */
 	private boolean mustChangePassword;
 
-	/*
-	 * 描述
-	 */
-	private String description;
 }
