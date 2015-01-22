@@ -1,4 +1,4 @@
-package com.hhwy.webapp1.model;
+package com.hhwy.webapp1.model.core;
 
 import java.sql.Timestamp;
 
@@ -12,7 +12,7 @@ import com.hhwy.webapp1.core.BaseModel;
  * 系统登录用户
  */
 @Entity
-@Table(name = "t_user")
+@Table(name = "t_core_user")
 public class User extends BaseModel {
 
 	/*

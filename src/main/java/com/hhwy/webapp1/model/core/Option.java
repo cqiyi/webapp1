@@ -1,4 +1,4 @@
-package com.hhwy.webapp1.model;
+package com.hhwy.webapp1.model.core;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import com.hhwy.webapp1.core.BaseModel;
  * 系统字典选项
  */
 @Entity
-@Table(name = "t_option")
+@Table(name = "t_core_option")
 public class Option extends BaseModel {
 
 	@Column(length = LITTLE)

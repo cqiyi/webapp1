@@ -1,4 +1,4 @@
-package com.hhwy.webapp1.model;
+package com.hhwy.webapp1.model.core;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import com.hhwy.webapp1.core.BaseModel;
 
 @Entity
-@Table(name = "t_organization")
+@Table(name = "t_core_organization")
 public class Organization extends BaseModel {
 
 	/*

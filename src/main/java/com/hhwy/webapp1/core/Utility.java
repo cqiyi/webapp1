@@ -10,6 +10,8 @@ import java.util.Random;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
@@ -100,4 +102,8 @@ public final class Utility {
 	// SerializerFeature.WriteNullStringAsEmpty,
 	// SerializerFeature.WriteNullListAsEmpty
 	};
+
+	public static WebApplicationContext getCurrentWebApplicationContext() {
+		return ContextLoader.getCurrentWebApplicationContext();
+	}
 }

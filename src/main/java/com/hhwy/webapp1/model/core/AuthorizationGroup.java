@@ -1,4 +1,4 @@
-package com.hhwy.webapp1.model;
+package com.hhwy.webapp1.model.core;
 
 public enum AuthorizationGroup {
 

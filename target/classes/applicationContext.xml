@@ -7,6 +7,11 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="global" />
+	</bean>
+
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
@@ -30,9 +35,7 @@
 		<property name="name" value="system" />
 		<property name="dataSource" ref="dataSource" />
 		<property name="ddlGenerate" value="true" />
-		<!-- 
-		<property name="ddlRun" value="true" />
-		 -->
+		<!-- <property name="ddlRun" value="true" /> -->
 	</bean>
 
 	<bean id="ebean"
