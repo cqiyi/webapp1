@@ -2,7 +2,9 @@ package com.hhwy.webapp1.core;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
@@ -23,13 +25,11 @@ public final class Utility {
 	 * 产生随机字符
 	 * */
 	public static Random randGen = new Random();
-	private static char[] character = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-			.toCharArray();
+	private static char[] character = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
 	public static final String randomString(int length) {
 		if (length < 1) {
-			throw new IllegalArgumentException("企图生成长度小于1的随机字符串，length="
-					+ length);
+			throw new IllegalArgumentException("企图生成长度小于1的随机字符串，length=" + length);
 		}
 		char[] randBuffer = new char[length];
 		for (int i = 0; i < randBuffer.length; i++) {
@@ -45,8 +45,7 @@ public final class Utility {
 	public static String getFileMD5(String fileName) {
 		File file = new File(fileName);
 		if (!file.exists()) {
-			throw new IllegalArgumentException("获取文件内容的MD5摘要信息，文件不存在，fileName="
-					+ fileName);
+			throw new IllegalArgumentException("获取文件内容的MD5摘要信息，文件不存在，fileName=" + fileName);
 		}
 		MessageDigest digest = null;
 		int len;
@@ -105,5 +104,19 @@ public final class Utility {
 
 	public static WebApplicationContext getCurrentWebApplicationContext() {
 		return ContextLoader.getCurrentWebApplicationContext();
+	}
+
+	public static void println(String str) {
+		System.out.println(str);
+	}
+
+	public static String URLDecode(String str) {
+		try {
+			return URLDecoder.decode(str, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return str;
+		}
 	}
 }
