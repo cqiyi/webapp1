@@ -53,6 +53,12 @@ public class User extends BaseModel {
 	 * 最后登录时间
 	 */
 	private Timestamp lastLogined;
+	
+
+	/*
+	 * 下次登录必须修改密码
+	 */
+	private boolean mustChangePassword;
 
 	public String getLoginName() {
 		return loginName;
@@ -117,10 +123,5 @@ public class User extends BaseModel {
 	public void setMustChangePassword(boolean mustChangePassword) {
 		this.mustChangePassword = mustChangePassword;
 	}
-
-	/*
-	 * 下次登录必须修改密码
-	 */
-	private boolean mustChangePassword;
 
 }
