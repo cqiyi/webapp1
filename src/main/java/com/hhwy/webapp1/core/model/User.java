@@ -45,15 +45,9 @@ public class User extends BaseModel {
 	private Timestamp lockExpirationTime;
 
 	/*
-	 * 认证用户组
-	 */
-	private AuthorizationGroup authorizationLevel;
-
-	/*
 	 * 最后登录时间
 	 */
 	private Timestamp lastLogined;
-	
 
 	/*
 	 * 下次登录必须修改密码
@@ -98,14 +92,6 @@ public class User extends BaseModel {
 
 	public void setLockExpirationTime(Timestamp lockExpirationTime) {
 		this.lockExpirationTime = lockExpirationTime;
-	}
-
-	public AuthorizationGroup getAuthorizationLevel() {
-		return authorizationLevel;
-	}
-
-	public void setAuthorizationLevel(AuthorizationGroup authorizationLevel) {
-		this.authorizationLevel = authorizationLevel;
 	}
 
 	public Timestamp getLastLogined() {

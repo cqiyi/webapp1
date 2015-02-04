@@ -19,9 +19,7 @@ public class ModelController {
 		try {
 			return ebeanServerFactory.getObject();
 		} catch (Exception e) {
-			e.printStackTrace();
-			RuntimeException ex = new RuntimeException(e);
-			throw ex;
+			throw Utility.wrapRuntimeException(e);
 		}
 	}
 

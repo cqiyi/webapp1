@@ -44,4 +44,42 @@
 	</bean>
 
 	<context:component-scan base-package="com.hhwy.webapp1" />
+	
+	
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login" />
+		<property name="filters">
+			<util:map>
+				<entry key="authc">
+					<bean class="com.hhwy.webapp1.core.ApplicationAuthenticationFilter" />
+				</entry>
+			</util:map>
+		</property>
+		<property name="filterChainDefinitions">
+			<value>
+				/login = anon
+				/logout = anon
+				/api/** = anon
+				/assets/** = anon
+				# authc
+				/** = anon
+			</value>
+		</property>
+	</bean>
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="applicationRealm" />
+		<!-- <property name="sessionMode" value="http" /> -->
+	</bean>
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<bean id="applicationRealm" class="com.hhwy.webapp1.core.ApplicationRealm" />
+
+	<!-- Enable Shiro Annotations for Spring-configured beans. Only run after -->
+	<!-- the lifecycleBeanProcessor has run: -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor" />
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
 </beans>

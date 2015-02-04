@@ -18,7 +18,8 @@ public class Installed {
 
 	public void execute() {
 		Utility.println("-----------------------------------------------------\n系统初始化...");
-		String appHomeName = GlobalMessageContext.Current.get("env.app_home_name");
+		String appHomeName = GlobalMessageContext.Current
+				.get("env.app_home_name");
 		String appHome = System.getenv(appHomeName);
 
 		String platformName = GlobalMessageContext.Current.get("pltform.name");
@@ -31,28 +32,29 @@ public class Installed {
 			Utility.println("环境变量 [" + appHomeName + "] 未设置，忽略重定向.");
 		}
 		Utility.println("当前位置：" + appHomeName + "=" + appHome);
-		String path = Utility.URLDecode(Installed.class.getResource("").getPath());
-		String filePath = path.substring(1, path.lastIndexOf(CLASSES_NAME) + CLASSES_NAME.length()) + INSTALLED_SIGN_FILE;
+		String path = Utility.URLDecode(Installed.class.getResource("")
+				.getPath());
+		String filePath = path.substring(1, path.lastIndexOf(CLASSES_NAME)
+				+ CLASSES_NAME.length())
+				+ INSTALLED_SIGN_FILE;
 		File file = new File(filePath);
-		if (file.exists()) {
-			// 系统已经安装了
-			return;
-		}
+		if (!file.exists()) {
 
-		// 系统未安装，执行安装初始化
+			// 系统未安装，执行安装初始化
 
-		FileWriter fileWriter = null;
-		try {
-			file.createNewFile();
-			fileWriter = new FileWriter(file);
-			fileWriter.append("OK.");
-			fileWriter.flush();
-			fileWriter.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			FileWriter fileWriter = null;
+			try {
+				file.createNewFile();
+				fileWriter = new FileWriter(file);
+				fileWriter.append("OK.");
+				fileWriter.flush();
+				fileWriter.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			initialize();
 		}
-		initialize();
 		Utility.println("完成。\n-----------------------------------------------------");
 	}
 

@@ -1,11 +1,18 @@
-package com.hhwy.webapp1.core.web;
+package com.hhwy.webapp1.core.rest;
+
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.stringtemplate.v4.ST;
 
 import com.hhwy.webapp1.core.ModelController;
+import com.hhwy.webapp1.core.SessionHelper;
+import com.hhwy.webapp1.core.Utility;
 import com.hhwy.webapp1.core.model.User;
 import com.hhwy.webapp1.test1.model.Model01;
 
@@ -26,7 +33,7 @@ public class UserController extends ModelController {
 		u.setDisplayName("张三");
 
 		getEbean().save(u);
-		//TODO
+		// TODO
 		getEbean().createNamedSqlQuery("").findList().get(0).keys();
 
 		User m02 = getEbean().find(User.class, u.getId());
@@ -38,5 +45,37 @@ public class UserController extends ModelController {
 		int count = jdbcTemplate.queryForObject(
 				"select count(*) from sqlite_master", int.class);
 		return count + "";
+	}
+
+	private static final String JSON_LOGIN = "{logined:<logined>, message:\"<message>\"}";
+
+	/*
+	 * 登录验证
+	 */
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public @ResponseBody String login(@RequestParam String apikey,
+			@RequestParam String login, @RequestParam String password,
+			@RequestParam(required = false) String captcha, Model model) {
+		//假设登录失败
+		boolean logined = false;
+		String message = "登录失败";
+		
+		ST json = new ST(JSON_LOGIN);
+		try {
+			List<User> users = getEbean().find(User.class).where()
+					.eq("login_name", login).findList();
+			if (users.size() != 1) {
+				message = message + "，用户不存在";
+			} else {
+				SessionHelper.login(users.get(0), password);
+				logined = true;
+			}
+		} catch (Exception ex) {
+			Utility.wrapRuntimeException(ex);
+			message = message + "，用户名或密码错误：" + ex.getMessage();
+		}
+		json.add("logined", logined);
+		json.add("message", message);
+		return json.render();
 	}
 }

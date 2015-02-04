@@ -25,11 +25,13 @@ public final class Utility {
 	 * 产生随机字符
 	 * */
 	public static Random randGen = new Random();
-	private static char[] character = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+	private static char[] character = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+			.toCharArray();
 
 	public static final String randomString(int length) {
 		if (length < 1) {
-			throw new IllegalArgumentException("企图生成长度小于1的随机字符串，length=" + length);
+			throw new IllegalArgumentException("企图生成长度小于1的随机字符串，length="
+					+ length);
 		}
 		char[] randBuffer = new char[length];
 		for (int i = 0; i < randBuffer.length; i++) {
@@ -45,7 +47,8 @@ public final class Utility {
 	public static String getFileMD5(String fileName) {
 		File file = new File(fileName);
 		if (!file.exists()) {
-			throw new IllegalArgumentException("获取文件内容的MD5摘要信息，文件不存在，fileName=" + fileName);
+			throw new IllegalArgumentException("获取文件内容的MD5摘要信息，文件不存在，fileName="
+					+ fileName);
 		}
 		MessageDigest digest = null;
 		int len;
@@ -90,7 +93,8 @@ public final class Utility {
 	}
 
 	public static String getRandomUUID() {
-		String str = java.util.UUID.randomUUID().toString();
+		String str = java.util.UUID.randomUUID().toString()
+				.replaceAll("-", StringUtils.EMPTY);
 		return str.toLowerCase();
 
 	}
@@ -118,5 +122,14 @@ public final class Utility {
 			e.printStackTrace();
 			return str;
 		}
+	}
+
+	/*
+	 * 抛出运行期异常
+	 */
+	public static RuntimeException wrapRuntimeException(Exception exception){
+		exception.printStackTrace();
+		RuntimeException re = new RuntimeException(exception);
+		return re;
 	}
 }

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ViewController {
-
-	@RequestMapping(value = { "/{path}.html" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/{path}.html", method = RequestMethod.GET)
 	public String showJspView(@PathVariable String path, Model model) {
 		// model.addAttribute("app_name", "恒华移动应用商店");
 		return path;
 	}
+	
 }
