@@ -43,16 +43,12 @@
 	</div>
 </div>
 </body>
-<script type="text/javascript" src="<s:url value='/assets/js/sea.js' />"></script>
+<script type="text/javascript" src="<s:url value='/assets/js/jquery-1.11.2.min.js' />"></script>
 <script type="text/javascript" src="<s:url value='/assets/js/core.js' />"></script>
-<!-- 
-<script type="text/javascript" src="<s:url value='/assets/js/CryptoJS/rollups/hmac-md5.js' />"></script>
- -->
 <script type="text/javascript">
-define('jquery', function($){
-	alert($('form').html());
-	$('form:first').rest(function(json, status){ 
-		$("#message").html(json.responseText);
+$(function(){
+	$('form:first').rest(function(){ 
+		alert(1);
 	});
 });
 </script>
