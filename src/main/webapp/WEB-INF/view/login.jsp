@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="<s:url value='/assets/bootstrap/css/bootstrap.min.css'/>">
 <link rel="stylesheet" href="<s:url value='/assets/login.css'/>">
 <script type="text/javascript">
-	var app = app || {apikey: '${apikey}', secret: '${secret}', base: '<s:url value="" />'};
+	var app = app || {apikey: '${apikey}', secret: '${secret}', appurl: '<s:url value="/" />'};
 </script>
 </head>
 <body>
@@ -44,12 +44,15 @@
 </div>
 </body>
 <script type="text/javascript" src="<s:url value='/assets/js/jquery-1.11.2.min.js' />"></script>
+<script type="text/javascript" src="<s:url value='/assets/js/underscore-min.js' />"></script>
+<script type="text/javascript" src="<s:url value='/assets/js/json2.js' />"></script>
 <script type="text/javascript" src="<s:url value='/assets/js/core.js' />"></script>
 <script type="text/javascript">
 $(function(){
-	$('form:first').rest(function(){ 
-		alert(1);
-	});
+    $('form:first').rest(function(data){
+        $("#message").html(data.message);
+    });
+	
 });
 </script>
 </html>

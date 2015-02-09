@@ -47,7 +47,7 @@ public class UserController extends ModelController {
 		return count + "";
 	}
 
-	private static final String JSON_LOGIN = "{logined:<logined>, message:\"<message>\"}";
+	private static final String JSON_LOGIN = "{\"logined\":\"<logined>\", \"message\":\"<message>\"}";
 
 	/*
 	 * 登录验证
@@ -72,7 +72,7 @@ public class UserController extends ModelController {
 			}
 		} catch (Exception ex) {
 			Utility.wrapRuntimeException(ex);
-			message = message + "，用户名或密码错误：" + ex.getMessage();
+			message = message + "，用户名或密码错误";
 		}
 		json.add("logined", logined);
 		json.add("message", message);
