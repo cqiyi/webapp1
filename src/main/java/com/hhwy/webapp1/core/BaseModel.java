@@ -28,12 +28,12 @@ public class BaseModel {
 	 * 创建时间
 	 */
 	@Column(updatable = false)
-	protected Timestamp created;
+	protected Timestamp created = Utility.getNow();
 
 	/*
 	 * 更新时间
 	 */
-	protected Timestamp updated;
+	protected Timestamp updated = Utility.getNow();
 
 	/*
 	 * 扩展属性，以json格式存储

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.hhwy.webapp1.core.BaseModel;
+import com.hhwy.webapp1.core.Utility;
 
 /*
  * 系统登录用户
@@ -30,14 +31,8 @@ public class User extends BaseModel {
 	/*
 	 * 密码，加密后的
 	 */
-	@Column(length = MIDDLE)
+	@Column(length = LITTLE)
 	private String password;
-
-	/*
-	 * 密码混淆码
-	 */
-	@Column(length = SHORT)
-	private String salt;
 
 	/*
 	 * 解锁时间
@@ -76,14 +71,6 @@ public class User extends BaseModel {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
 	}
 
 	public Timestamp getLockExpirationTime() {

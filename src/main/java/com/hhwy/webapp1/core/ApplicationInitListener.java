@@ -22,7 +22,7 @@ public class ApplicationInitListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		// Message.getContext().loadProperties(arg0.getServletContext());
 		// ApplicationBean.initVersionMD5();
-		Installed.Current.execute();
+		Installed.execute();
 	}
 
 }

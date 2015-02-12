@@ -13,7 +13,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>登录 - <s:message code="app_name"/></title>
-<link rel="shortcut icon" href="<s:url value='/assets/favicon.png' />">
+<link rel="shortcut icon" href="<s:url value='/assets/favicon.ico' />" type="image/x-icon" />
 <link rel="stylesheet" href="<s:url value='/assets/font-awesome/css/font-awesome.min.css'/>">
 <link rel="stylesheet" href="<s:url value='/assets/bootstrap/css/bootstrap.min.css'/>">
 <link rel="stylesheet" href="<s:url value='/assets/login.css'/>">

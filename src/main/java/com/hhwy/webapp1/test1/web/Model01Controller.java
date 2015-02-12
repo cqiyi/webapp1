@@ -3,11 +3,11 @@ package com.hhwy.webapp1.test1.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hhwy.webapp1.core.ModelController;
+import com.hhwy.webapp1.core.RESTController;
 
 @Controller
 @RequestMapping(value = "/api/model01", produces = "application/json;charset=UTF-8")
-public class Model01Controller extends ModelController {
+public class Model01Controller extends RESTController {
 //
 //	@RequestMapping(method = RequestMethod.GET)
 //	public @ResponseBody Model01 get() {

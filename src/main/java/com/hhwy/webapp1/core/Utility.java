@@ -7,11 +7,13 @@ import java.math.BigInteger;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -25,13 +27,11 @@ public final class Utility {
 	 * 产生随机字符
 	 * */
 	public static Random randGen = new Random();
-	private static char[] character = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-			.toCharArray();
+	private static char[] character = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
 	public static final String randomString(int length) {
 		if (length < 1) {
-			throw new IllegalArgumentException("企图生成长度小于1的随机字符串，length="
-					+ length);
+			throw new IllegalArgumentException("企图生成长度小于1的随机字符串，length=" + length);
 		}
 		char[] randBuffer = new char[length];
 		for (int i = 0; i < randBuffer.length; i++) {
@@ -44,11 +44,10 @@ public final class Utility {
 	 * 
 	 * 获取文件内容的MD5摘要信息
 	 */
-	public static String getFileMD5(String fileName) {
+	public static String md5File(String fileName) {
 		File file = new File(fileName);
 		if (!file.exists()) {
-			throw new IllegalArgumentException("获取文件内容的MD5摘要信息，文件不存在，fileName="
-					+ fileName);
+			throw new IllegalArgumentException("获取文件内容的MD5摘要信息，文件不存在，fileName=" + fileName);
 		}
 		MessageDigest digest = null;
 		int len;
@@ -69,7 +68,7 @@ public final class Utility {
 	}
 
 	/* 获取字符串的md5 */
-	public static String getStringMD5(String str) {
+	public static String md5Hash(String str) {
 		BigInteger bigInt = null;
 		try {
 			MessageDigest digest = MessageDigest.getInstance("MD5");
@@ -93,8 +92,7 @@ public final class Utility {
 	}
 
 	public static String getRandomUUID() {
-		String str = java.util.UUID.randomUUID().toString()
-				.replaceAll("-", StringUtils.EMPTY);
+		String str = java.util.UUID.randomUUID().toString().replaceAll("-", StringUtils.EMPTY);
 		return str.toLowerCase();
 
 	}
@@ -114,7 +112,7 @@ public final class Utility {
 		System.out.println(str);
 	}
 
-	public static String URLDecode(String str) {
+	public static String urlDecode(String str) {
 		try {
 			return URLDecoder.decode(str, "utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -127,9 +125,23 @@ public final class Utility {
 	/*
 	 * 抛出运行期异常
 	 */
-	public static RuntimeException wrapRuntimeException(Exception exception){
+	public static RuntimeException wrapRuntimeException(Exception exception) {
 		exception.printStackTrace();
 		RuntimeException re = new RuntimeException(exception);
 		return re;
+	}
+
+	/*
+	 * 获取当前系统时间
+	 */
+	public static Timestamp getNow() {
+		return new Timestamp(System.currentTimeMillis());
+	}
+
+	/*
+	 * 采用sha256加密算法加密
+	 */
+	public static String sha256Hash(String source) {
+		return new Sha256Hash(source).toString();
 	}
 }
