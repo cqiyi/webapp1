@@ -13,7 +13,6 @@ import java.util.Random;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -136,12 +135,5 @@ public final class Utility {
 	 */
 	public static Timestamp getNow() {
 		return new Timestamp(System.currentTimeMillis());
-	}
-
-	/*
-	 * 采用sha256加密算法加密
-	 */
-	public static String sha256Hash(String source) {
-		return new Sha256Hash(source).toString();
 	}
 }
