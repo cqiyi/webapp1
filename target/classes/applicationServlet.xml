@@ -8,7 +8,7 @@
 
 	<!-- 注册所有的Controller -->
 	<mvc:annotation-driven />
-	<context:component-scan base-package="com.hhwy.webapp1" />
+	<context:component-scan base-package="com.hhwy.shorturl" />
 
 	<mvc:resources location="/assets/" mapping="/assets/**" />
 
