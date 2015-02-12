@@ -1,0 +1,25 @@
+.header h1 {
+	padding: 30px;
+	font-family: 微软雅黑, 黑体;
+	font-weight: bold;
+	text-align: center;
+}
+
+#footer {
+	color: #aaa;
+	margin: 20px;
+	text-align: center
+}
+
+.icp {
+	margin: 20px 20px
+}
+
+#footer a {
+	color: #aaa
+}
+
+.c{
+	text-align: center;
+	margin-top:100px;
+}
