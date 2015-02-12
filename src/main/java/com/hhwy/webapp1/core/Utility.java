@@ -119,4 +119,23 @@ public final class Utility {
 			return str;
 		}
 	}
+	
+
+	// private static final String DIGITAL =
+	// "0123456789abcdefghijklmnopqrstuvwxyz";
+	// private static final String DIGITAL =
+	// "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_!~[]{}|$^()";
+	private static final String DIGITAL = "SPz8u}4!(1q$]7fg|wCZ2E)hc0iToOjJ_s^[KBHFaNblWXGR3{Vdmrvtk~QeMUyx9-LD6IAp5Yn'";
+
+	public static String dec2HexN(int value) {
+		StringBuffer buffer = new StringBuffer();
+		int base = DIGITAL.length();
+		int x = value;
+		do {
+			buffer.insert(0, DIGITAL.charAt(x % base));
+			x /= base;
+		} while (x != 0);
+
+		return buffer.toString();
+	}
 }
