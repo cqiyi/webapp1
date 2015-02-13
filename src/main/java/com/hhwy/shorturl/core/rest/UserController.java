@@ -33,9 +33,9 @@ public class UserController extends RESTController {
 		return m02.toString();
 	}
 
-	@RequestMapping(value = "tables", method = RequestMethod.GET)
-	public @ResponseBody String tables() throws Exception {
-		int count = jdbcTemplate.queryForObject("select count(*) from sqlite_master", int.class);
-		return count + "";
-	}
+//	@RequestMapping(value = "tables", method = RequestMethod.GET)
+//	public @ResponseBody String tables() throws Exception {
+////		int count = jdbcTemplate.queryForObject("select count(*) from sqlite_master", int.class);
+//		return count + "";
+//	}
 }

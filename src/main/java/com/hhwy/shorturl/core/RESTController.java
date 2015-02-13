@@ -1,34 +1,23 @@
 package com.hhwy.shorturl.core;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.springsupport.factory.EbeanServerFactoryBean;
 import com.avaje.ebean.text.json.JsonContext;
 
-@Controller
 public class RESTController {
 
-	@Autowired
-	public JdbcTemplate jdbcTemplate;
-
-	@Autowired
-	private EbeanServerFactoryBean ebeanServerFactory;
-
-	public EbeanServer getEbean() {
-		try {
-			return ebeanServerFactory.getObject();
-		} catch (Exception e) {
-			throw Utility.wrapRuntimeException(e);
-		}
+	protected JdbcTemplate getJdbcTemplate(){
+		return Installed.getJdbcTemplate();
+	}
+	protected EbeanServer getEbean() {
+		return Installed.getEbean();
 	}
 
 	private JsonContext jc;
 
-	public JsonContext getJsonContext() {
+	protected JsonContext getJsonContext() {
 		if (jc == null) {
 			jc = getEbean().createJsonContext();
 		}

@@ -16,7 +16,7 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="org.sqlite.JDBC" />
-		<property name="jdbcUrl" value="jdbc:sqlite:system.db" />
+		<property name="jdbcUrl" value="jdbc:sqlite:shorturl.db" />
 	</bean>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
@@ -30,10 +30,12 @@
 	</bean>
 
 	<bean id="ebeanServerConfig" class="com.avaje.ebean.config.ServerConfig">
-		<property name="name" value="system" />
+		<property name="name" value="shorturl" />
 		<property name="dataSource" ref="dataSource" />
+	 <!-- 
 		<property name="ddlGenerate" value="true" />
-		<!-- <property name="ddlRun" value="true" /> -->
+		<property name="ddlRun" value="true" />
+	 -->
 	</bean>
 
 	<bean id="ebean"

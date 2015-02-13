@@ -1,6 +1,6 @@
 package com.hhwy.shorturl.core;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,12 +28,12 @@ public class BaseModel {
 	 * 创建时间
 	 */
 	@Column(updatable = false)
-	protected Timestamp created = Utility.getNow();
+	protected Date created = Utility.getNow();
 
 	/*
 	 * 更新时间
 	 */
-	protected Timestamp updated = Utility.getNow();
+	protected Date updated = Utility.getNow();
 
 	/*
 	 * 扩展属性，以json格式存储
@@ -63,19 +63,19 @@ public class BaseModel {
 		this.version = version;
 	}
 
-	public Timestamp getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
-	public void setCreated(Timestamp created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 
-	public Timestamp getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(Timestamp updated) {
+	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 

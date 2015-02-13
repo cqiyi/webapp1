@@ -17,8 +17,7 @@ public class AccessToken extends BaseModel {
 
 	public AccessToken() {
 		this.apikey = Utility.getRandomUUID();
-		this.secret = Utility.getRandomUUID()
-				+ Utility.md5Hash(this.apikey);
+		this.secret = Utility.getRandomUUID() + Utility.md5Hash(this.apikey);
 	}
 
 	public String getApikey() {

@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
@@ -133,7 +133,25 @@ public final class Utility {
 	/*
 	 * 获取当前系统时间
 	 */
-	public static Timestamp getNow() {
-		return new Timestamp(System.currentTimeMillis());
+	public static Date getNow() {
+		return new Date();
+	}
+
+	// private static final String DIGITAL =
+	// "0123456789abcdefghijklmnopqrstuvwxyz";
+	// private static final String DIGITAL =
+	// "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_!~[]{}|$^()";
+	public static final String DIGITAL = "SPz8u}4!(1q$]7fg|wCZ2E)hc0iToOjJ_s^[KBHFaNblWXGR3{Vdmrvtk~QeMUyx9-LD6IAp5Yn'";
+
+	public static String dec2HexN(int value) {
+		StringBuffer buffer = new StringBuffer();
+		int base = DIGITAL.length();
+		int x = value;
+		do {
+			buffer.insert(0, DIGITAL.charAt(x % base));
+			x /= base;
+		} while (x != 0);
+
+		return buffer.toString();
 	}
 }

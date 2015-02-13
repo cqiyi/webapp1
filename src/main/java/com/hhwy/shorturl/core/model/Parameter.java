@@ -19,14 +19,6 @@ public class Parameter extends BaseModel {
 	@Column(length = MIDDLE)
 	private String paramValue;
 
-	@Column(length = MIDDLE)
-	private String defaultValue;
-
-	/*
-	 * 系统核心参数，只有Maintenance级别的用户可以修改
-	 */
-	private Boolean isCore;
-
 	public String getParamName() {
 		return paramName;
 	}
@@ -41,22 +33,6 @@ public class Parameter extends BaseModel {
 
 	public void setParamValue(String paramValue) {
 		this.paramValue = paramValue;
-	}
-
-	public String getDefaultValue() {
-		return defaultValue;
-	}
-
-	public void setDefaultValue(String defaultValue) {
-		this.defaultValue = defaultValue;
-	}
-
-	public Boolean getIsCore() {
-		return isCore;
-	}
-
-	public void setIsCore(Boolean isCore) {
-		this.isCore = isCore;
 	}
 
 }
