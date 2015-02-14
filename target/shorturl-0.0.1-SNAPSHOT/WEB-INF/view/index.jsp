@@ -72,6 +72,18 @@
 	<div id="footer" class="navbar-fixed-bottom">
 		©2015 恒华科技 版权所有<span class="icp"><a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备10054994号-3</a></span>
 	</div>
+	<div style="display: none">
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+				var hm = document.createElement("script");
+				hm.src = "//hm.baidu.com/hm.js?31adb78aa26ff9cfbbcef455ce2cac5e";
+				var s = document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
+	</div>
+
 </body>
 <script type="text/javascript" src="<s:url value='/assets/js/jquery-1.11.2.min.js' />"></script>
 <script type="text/javascript" src="<s:url value='/assets/bootstrap/js/bootstrap.min.js' />"></script>
