@@ -69,6 +69,7 @@
 			</p>
 		</div>
 	</div>
+	<div id="ttt">&nbsp;</div>
 	<div id="footer" class="navbar-fixed-bottom">
 		©2015 恒华科技 版权所有<span class="icp"><a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备10054994号-3</a></span>
 	</div>
@@ -87,6 +88,7 @@
 </body>
 <script type="text/javascript" src="<s:url value='/assets/js/jquery-1.11.2.min.js' />"></script>
 <script type="text/javascript" src="<s:url value='/assets/bootstrap/js/bootstrap.min.js' />"></script>
+<script type="text/javascript" src="<s:url value='/assets/js/crypto-js/rollups/sha256.js' />"></script>
 <script type="text/javascript" src="<s:url value='/assets/js/core.js' />"></script>
 <script type="text/javascript">
 	$(function() {
@@ -107,6 +109,7 @@
 
 			}
 		});
+		$('#ttt').html("app.secret=" + CryptoJS.SHA256(app.secret));
 	});
 </script>
 </html>

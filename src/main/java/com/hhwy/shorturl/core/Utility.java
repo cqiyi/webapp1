@@ -6,10 +6,10 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Random;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,17 +66,38 @@ public final class Utility {
 		return bigInt.toString(16);
 	}
 
+	private static MessageDigest digest_md5 = null;
+
 	/* 获取字符串的md5 */
 	public static String md5Hash(String str) {
-		BigInteger bigInt = null;
+		String output = StringUtils.EMPTY;
 		try {
-			MessageDigest digest = MessageDigest.getInstance("MD5");
-			digest.update(str.getBytes());
-			bigInt = new BigInteger(1, digest.digest());
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			if (digest_md5 == null) {
+				digest_md5 = MessageDigest.getInstance("MD5");
+			}
+			byte[] hash = digest_md5.digest(str.getBytes("UTF-8"));
+			output = Hex.encodeHexString(hash);
+		} catch (Exception e) {
+			wrapRuntimeException(e);
 		}
-		return bigInt.toString(16);
+		return output;
+	}
+
+	private static MessageDigest digest_sha256 = null;
+
+	/* 获取字符串的sha256 */
+	public static String sha256Hash(String str) {
+		String output = StringUtils.EMPTY;
+		try {
+			if (digest_sha256 == null) {
+				digest_sha256 = MessageDigest.getInstance("SHA-256");
+			}
+			byte[] hash = digest_sha256.digest(str.getBytes("UTF-8"));
+			output = Hex.encodeHexString(hash);
+		} catch (Exception e) {
+			wrapRuntimeException(e);
+		}
+		return output;
 	}
 
 	public static final String ILLEGAL_CHARACTER = " ,;-%&?.|`";
@@ -153,5 +174,9 @@ public final class Utility {
 		} while (x != 0);
 
 		return buffer.toString();
+	}
+	
+	public static void main(String[] args){
+		println(sha256Hash("3980c1003fee478da0376a3e1c615688a172a0750a67bd5bc5c12f0be47783fb"));
 	}
 }

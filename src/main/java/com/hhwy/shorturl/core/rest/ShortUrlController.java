@@ -1,5 +1,6 @@
 package com.hhwy.shorturl.core.rest;
 
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.hhwy.shorturl.core.RESTController;
 import com.hhwy.shorturl.core.RESTUnusual;
 import com.hhwy.shorturl.core.Utility;
@@ -22,7 +24,8 @@ public class ShortUrlController extends RESTController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody String create(ShortUrl shortUrl, HttpServletRequest request) {
-
+		Utility.println(JSON.toJSONString(request.getHeaderNames()));
+		
 		// ShortUrl shortUrl = new ShortUrl(url);
 		if (StringUtils.isEmpty(shortUrl.getAlias())) {
 			int next = getNextValue();

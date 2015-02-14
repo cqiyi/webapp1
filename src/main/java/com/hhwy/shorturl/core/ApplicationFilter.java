@@ -11,7 +11,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.avaje.ebean.EbeanServer;
+import com.hhwy.shorturl.core.model.AccessToken;
 import com.hhwy.shorturl.core.model.ShortUrl;
 
 public class ApplicationFilter implements Filter {
@@ -34,7 +37,8 @@ public class ApplicationFilter implements Filter {
 
 		// Utility.println("httpRequest.getRequestURI()=" +
 		// httpRequest.getRequestURI());
-		Utility.println("httpRequest.getServletPath()=" + httpRequest.getServletPath());
+		// Utility.println("httpRequest.getServletPath()=" +
+		// httpRequest.getServletPath());
 		String alias = httpRequest.getServletPath().substring(1);
 
 		ShortUrl url = getEbean().find(ShortUrl.class).where().eq("alias", alias).findUnique();
@@ -44,7 +48,23 @@ public class ApplicationFilter implements Filter {
 			httpRespone.sendRedirect(url.getOrginUrl());
 			return;
 		}
-		chain.doFilter(request, response);
+
+		// TODO 视图请求过滤掉
+
+		String apikey = httpRequest.getHeader("apikey");
+		String salt = httpRequest.getHeader("salt");
+		String authenticationToken = httpRequest.getHeader("authentication-token");
+
+		AccessToken token = Installed.getEbean().find(AccessToken.class).where().eq("apikey", apikey).findUnique();
+		if (token != null) {
+			// CryptoJS.SHA256(app.apikey + salt + app.secret)
+			String hashed = Utility.sha256Hash(apikey + salt + token.getSecret());
+			if (StringUtils.equals(authenticationToken, hashed)) {
+				chain.doFilter(request, response);
+			}
+		}
+
+		// TODO 默认返回认证失败403
 	}
 
 	@Override
