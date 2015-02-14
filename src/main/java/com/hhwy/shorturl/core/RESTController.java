@@ -8,9 +8,10 @@ import com.avaje.ebean.text.json.JsonContext;
 
 public class RESTController {
 
-	protected JdbcTemplate getJdbcTemplate(){
+	protected JdbcTemplate getJdbcTemplate() {
 		return Installed.getJdbcTemplate();
 	}
+
 	protected EbeanServer getEbean() {
 		return Installed.getEbean();
 	}
@@ -29,6 +30,7 @@ public class RESTController {
 	 */
 	@ExceptionHandler(value = { Exception.class })
 	public String showException(Exception ex) {
-		return ex instanceof RESTException ? ex.toString() : RESTException.UNKWON.toString();
+		ex.printStackTrace();
+		return RESTUnusual.UNKWON.toString();
 	}
 }

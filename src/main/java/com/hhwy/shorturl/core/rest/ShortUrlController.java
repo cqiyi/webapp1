@@ -1,15 +1,17 @@
 package com.hhwy.shorturl.core.rest;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hhwy.shorturl.core.RESTController;
+import com.hhwy.shorturl.core.RESTUnusual;
 import com.hhwy.shorturl.core.Utility;
 import com.hhwy.shorturl.core.model.Parameter;
 import com.hhwy.shorturl.core.model.ShortUrl;
@@ -19,16 +21,23 @@ import com.hhwy.shorturl.core.model.ShortUrl;
 public class ShortUrlController extends RESTController {
 
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody String create(@RequestParam String url, HttpServletRequest request) {
+	public @ResponseBody String create(ShortUrl shortUrl, HttpServletRequest request) {
 
-		int next = getNextValue();
-		Utility.println("next=" + next);
+		// ShortUrl shortUrl = new ShortUrl(url);
+		if (StringUtils.isEmpty(shortUrl.getAlias())) {
+			int next = getNextValue();
+			Utility.println("next=" + next);
+			shortUrl.setAlias(Utility.dec2HexN(next));
+		} else {
+			List<ShortUrl> extisted = getEbean().find(ShortUrl.class).where().eq("alias", shortUrl.getAlias())
+					.findList();
+			if (extisted.size() > 0) {
+				return RESTUnusual.SHORT_URL_ALIAS_EXISTED.toString();
+			}
 
-		ShortUrl shortUrl = new ShortUrl(url);
-		shortUrl.setAlias(Utility.dec2HexN(next));
+		}
 		getEbean().save(shortUrl);
-		shortUrl.setAlias(request.getRequestURL().toString().replaceFirst("/api/url", "/")
-				+ shortUrl.getAlias());
+		shortUrl.setAlias(request.getRequestURL().toString().replaceFirst("/api/url", "/") + shortUrl.getAlias());
 
 		return shortUrl.toString();
 	}

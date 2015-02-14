@@ -18,12 +18,26 @@
 #footer a {
 	color: #aaa
 }
-
-.c{
+h3, p{
 	text-align: center;
+}
+
+h3, .error{
 	margin-top:240px;
 }
 
-#message{
+h3 .label{
+	padding:10px;
+}
+
+#message, .more, .error{
 	display:none;
+}
+
+.invalid input {
+	background-color: #fff0f0
+}
+
+.valid input {
+	background-color: #f0fff0;
 }

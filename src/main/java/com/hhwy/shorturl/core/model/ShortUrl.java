@@ -1,5 +1,6 @@
 package com.hhwy.shorturl.core.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -26,6 +27,7 @@ public class ShortUrl extends BaseModel {
 	/*
 	 * 短地址别名
 	 */
+	@Column(length = SHORT, unique = true, nullable = false)
 	private String alias;
 
 	/**
@@ -46,6 +48,7 @@ public class ShortUrl extends BaseModel {
 	/*
 	 * 原始的地址
 	 */
+	@Column(length = LONG)
 	private String orginUrl;
 
 	/*
@@ -60,6 +63,7 @@ public class ShortUrl extends BaseModel {
 	/*
 	 * 网页的标题
 	 */
+	@Column(length = MIDDLE)
 	private String title;
 
 	/*

@@ -141,7 +141,7 @@ public final class Utility {
 	// "0123456789abcdefghijklmnopqrstuvwxyz";
 	// private static final String DIGITAL =
 	// "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_!~[]{}|$^()";
-	public static final String DIGITAL = "SPz8u}4!(1q$]7fg|wCZ2E)hc0iToOjJ_s^[KBHFaNblWXGR3{Vdmrvtk~QeMUyx9-LD6IAp5Yn'";
+	public static final String DIGITAL = "c2q7y.SPz8u4!$fgwCZEhiTjJ_sKBHFaNbWXGR3Vdmrvtk~QeMUx9-LD6IAp5Yn";
 
 	public static String dec2HexN(int value) {
 		StringBuffer buffer = new StringBuffer();

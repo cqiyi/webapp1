@@ -32,18 +32,42 @@
 	<div class="container">
 		<form class="form-horizontal col-md-8 col-md-offset-2" action="<s:url value='/api/url'/>">
 			<div class="form-group">
-				<input id="url" name="url" type="text" placeholder="请输入您的网址 . . ." class="form-control">
+				<input type="text" id="orginUrl" name="orginUrl" placeholder="请输入您的网址 . . ." class="form-control">
+				<button type="button" class="btn btn-link" id="more">
+					<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span> 更多
+				</button>
+			</div>
+			<div class="form-group more">
+				<div class="input-group">
+					<div class="input-group-addon">
+						<b>http://hhwy.org/</b>
+					</div>
+					<input type="text" class="form-control" id="alias" name="alias" placeholder="短网址" style="width: 140px">
+				</div>
 			</div>
 			<div class="form-group pull-right">
-				<button class="btn btn-info">
-					<span class="glyphicon glyphicon-random"></span> 网址转换
+				<button class="btn btn-primary">
+					<span class="glyphicon glyphicon-random"></span> 生成短网址
 				</button>
 			</div>
 		</form>
-		<p id="message" class="c">
-			<a class="btn btn-lg btn-default" target="_blank">http://hhwy.org/Dx5L</a><br/>
-			<a href="#">复制到剪切板</a>
-		</p>
+		<div class="row error">
+			<div class="alert alert-danger alert-dismissible col-md-8 col-md-offset-2" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong>错误：</strong> <span id="err">短网址已存在，请重新输入。</span>
+			</div>
+		</div>
+		<div id="message">
+			<h3>
+				<span class="label label-default">http://hhwy.org/Dx5L</span>
+			</h3>
+			<p>
+				<a class="btn btn-link" target="_blank"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 新窗口打开
+				</a>
+			</p>
+		</div>
 	</div>
 	<div id="footer" class="navbar-fixed-bottom">
 		©2015 恒华科技 版权所有<span class="icp"><a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备10054994号-3</a></span>
@@ -54,12 +78,23 @@
 <script type="text/javascript" src="<s:url value='/assets/js/core.js' />"></script>
 <script type="text/javascript">
 	$(function() {
-		$('form:first').rest(
-				function(json) {
-					$("#message").show().find("a.btn").html(json.alias).attr(
-							"href", json.alias);
-				});
+		$('[data-toggle="tooltip"]').tooltip();
+		$('#more').click(function() {
+			$(this).hide();
+			$('.more').show('slow');
+		})
+		$('form:first').rest(function(json) {
+			if (json.alias) {
+				$(".error").hide();
+				$("#message span.label").html(json.alias);
+				$("#message a").attr('href', json.alias);
+				$("#message").show();
+			} else {
+				$("#message").hide();
+				$(".error").show().find("#err").html(json.message);
 
+			}
+		});
 	});
 </script>
 </html>
