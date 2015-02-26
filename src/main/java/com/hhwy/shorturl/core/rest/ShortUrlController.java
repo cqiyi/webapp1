@@ -1,6 +1,5 @@
 package com.hhwy.shorturl.core.rest;
 
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +23,11 @@ public class ShortUrlController extends RESTController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody String create(ShortUrl shortUrl, HttpServletRequest request) {
-		Utility.println(JSON.toJSONString(request.getHeaderNames()));
-		
 		// ShortUrl shortUrl = new ShortUrl(url);
+		if (StringUtils.isBlank(shortUrl.getOrginUrl())) {
+			return RESTUnusual.SHORT_URL_BLANK.toString();
+		}
+		
 		if (StringUtils.isEmpty(shortUrl.getAlias())) {
 			int next = getNextValue();
 			Utility.println("next=" + next);

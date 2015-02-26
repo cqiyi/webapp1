@@ -27,6 +27,7 @@
 		},
 		beforeSend : function(XHR) {
 			var salt = $.randomString();
+			XHR.setRequestHeader("apikey", app.apikey);
 			XHR.setRequestHeader("salt", salt);
 			//XHR.setRequestHeader("paintext", app.apikey + salt + app.secret);
 			XHR.setRequestHeader("authentication-token", CryptoJS.SHA256(app.apikey + salt + app.secret));
@@ -39,9 +40,13 @@
 		var tags = 'input, textarea, select, button';
 		this.each(function() {
 			var $this = $(this);
-			$this.append('<input type="hidden" name="apikey" value="'
-					+ app.apikey + '" />');
-			$this.submit(function() {
+//			$this.append('<input type="hidden" name="apikey" value="'
+//					+ app.apikey + '" />');
+			$this.submit(function(event) {
+				if(event.isPropagationStopped()){
+					//提交的事件链已被取消
+					return;
+				}
 				setTimeout(function() {
 					$this.find(tags).attr('disabled', true);
 				}, 100);
@@ -56,6 +61,7 @@
 								data ]);
 					}
 				});
+				event.stopPropagation();
 				return false;
 			});
 		});

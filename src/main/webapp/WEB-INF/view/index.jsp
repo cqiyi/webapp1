@@ -69,7 +69,6 @@
 			</p>
 		</div>
 	</div>
-	<div id="ttt">&nbsp;</div>
 	<div id="footer" class="navbar-fixed-bottom">
 		©2015 恒华科技 版权所有<span class="icp"><a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备10054994号-3</a></span>
 	</div>
@@ -96,20 +95,32 @@
 		$('#more').click(function() {
 			$(this).hide();
 			$('.more').show('slow');
-		})
-		$('form:first').rest(function(json) {
+		});
+		
+		$('form:first').submit(function(){
+			if($('#orginUrl').val() == ''){
+				$('#message').hide();
+				$('.error').show().find('#err').html('网址不能为空');
+				return false;
+			}
+			var r = /^(http|https):\/\//i;
+			if(!r.test($('#orginUrl').val())){
+				$('#message').hide();
+				$('.error').show().find('#err').html('网址不合法');
+				return false;
+			}
+		}).rest(function(json) {
 			if (json.alias) {
-				$(".error").hide();
-				$("#message span.label").html(json.alias);
-				$("#message a").attr('href', json.alias);
-				$("#message").show();
+				$('.error').hide();
+				$('#message span.label').html(json.alias);
+				$('#message a').attr('href', json.alias);
+				$('#message').show();
 			} else {
-				$("#message").hide();
-				$(".error").show().find("#err").html(json.message);
+				$('#message').hide();
+				$('.error').show().find('#err').html(json.message);
 
 			}
 		});
-		$('#ttt').html("app.secret=" + CryptoJS.SHA256(app.secret));
 	});
 </script>
 </html>
