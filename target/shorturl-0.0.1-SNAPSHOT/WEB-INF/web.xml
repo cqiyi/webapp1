@@ -38,7 +38,7 @@
 	
 	<filter>
 		<filter-name>ApplicationFilter</filter-name>
-		<filter-class>com.hhwy.shorturl.core.ApplicationFilter</filter-class>
+		<filter-class>com.hhwy.svnlog.core.ApplicationFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>ApplicationFilter</filter-name>
@@ -61,7 +61,7 @@
 	</servlet-mapping>
 	
 	<listener>
-		<listener-class>com.hhwy.shorturl.core.ApplicationInitListener
+		<listener-class>com.hhwy.svnlog.core.ApplicationInitListener
 		</listener-class>
 	</listener>
 </web-app>

@@ -2,7 +2,7 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
-	<display-name>Short URL Service Platform</display-name>
+	<display-name>SVN log Analysis Platform</display-name>
 	
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
@@ -38,7 +38,7 @@
 	
 	<filter>
 		<filter-name>ApplicationFilter</filter-name>
-		<filter-class>com.hhwy.shorturl.core.ApplicationFilter</filter-class>
+		<filter-class>com.hhwy.svnlog.core.ApplicationFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>ApplicationFilter</filter-name>
@@ -61,7 +61,7 @@
 	</servlet-mapping>
 	
 	<listener>
-		<listener-class>com.hhwy.shorturl.core.ApplicationInitListener
+		<listener-class>com.hhwy.svnlog.core.ApplicationInitListener
 		</listener-class>
 	</listener>
 </web-app>

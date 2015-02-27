@@ -1,4 +1,4 @@
-package com.hhwy.shorturl.core;
+package com.hhwy.svnlog.core;
 
 import java.io.File;
 import java.io.FileInputStream;

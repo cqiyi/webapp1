@@ -1,4 +1,4 @@
-package com.hhwy.shorturl.core;
+package com.hhwy.svnlog.core;
 
 import java.io.IOException;
 
@@ -6,7 +6,6 @@ import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 
 import com.avaje.ebean.EbeanServer;
-import com.hhwy.shorturl.core.model.AccessToken;
-import com.hhwy.shorturl.core.model.ShortUrl;
+import com.hhwy.svnlog.core.model.AccessToken;
 
 public class ApplicationFilter implements Filter {
 
@@ -38,20 +36,9 @@ public class ApplicationFilter implements Filter {
 
 		// Utility.println("httpRequest.getServletPath()=" +
 		// httpRequest.getServletPath());
-		String alias = httpRequest.getServletPath().substring(1);
-
-		// 响应短地址的请求
-		ShortUrl url = getEbean().find(ShortUrl.class).where().eq("alias", alias).findUnique();
-		if (url != null) {
-			Utility.println("短地址：" + httpRequest.getServletPath() + " ...");
-			url.setClickCount(url.getClickCount() + 1);
-			getEbean().save(url);
-			httpRespone.sendRedirect(url.getOrginUrl());
-			return;
-		}
 
 		// 识别为api REST接口，进行安全验证
-		if (alias.startsWith("api/")) {
+		if (httpRequest.getServletPath().startsWith("/api/")) {
 			Utility.println("REST API接口：" + httpRequest.getServletPath() + " ...");
 			String apikey = httpRequest.getHeader("apikey");
 			String salt = httpRequest.getHeader("salt");

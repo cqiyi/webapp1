@@ -52,10 +52,7 @@
 			</div>
 		</form>
 		<div class="row error">
-			<div class="alert alert-danger alert-dismissible col-md-8 col-md-offset-2" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+			<div class="alert alert-danger col-md-8 col-md-offset-2" role="alert">
 				<strong>错误：</strong> <span id="err">短网址已存在，请重新输入。</span>
 			</div>
 		</div>
@@ -87,6 +84,7 @@
 </body>
 <script type="text/javascript" src="<s:url value='/assets/js/jquery-1.11.2.min.js' />"></script>
 <script type="text/javascript" src="<s:url value='/assets/bootstrap/js/bootstrap.min.js' />"></script>
+<script type="text/javascript" src="<s:url value='/assets/js/crypto-js/rollups/sha256.js' />"></script>
 <script type="text/javascript" src="<s:url value='/assets/js/core.js' />"></script>
 <script type="text/javascript">
 	$(function() {
@@ -94,16 +92,29 @@
 		$('#more').click(function() {
 			$(this).hide();
 			$('.more').show('slow');
-		})
-		$('form:first').rest(function(json) {
+		});
+		
+		$('form:first').submit(function(){
+			if($('#orginUrl').val() == ''){
+				$('#message').hide();
+				$('.error').show().find('#err').html('网址不能为空');
+				return false;
+			}
+			var r = /^(http|https):\/\//i;
+			if(!r.test($('#orginUrl').val())){
+				$('#message').hide();
+				$('.error').show().find('#err').html('网址不合法');
+				return false;
+			}
+		}).rest(function(json) {
 			if (json.alias) {
-				$(".error").hide();
-				$("#message span.label").html(json.alias);
-				$("#message a").attr('href', json.alias);
-				$("#message").show();
+				$('.error').hide();
+				$('#message span.label').html(json.alias);
+				$('#message a').attr('href', json.alias);
+				$('#message').show();
 			} else {
-				$("#message").hide();
-				$(".error").show().find("#err").html(json.message);
+				$('#message').hide();
+				$('.error').show().find('#err').html(json.message);
 
 			}
 		});
