@@ -43,7 +43,7 @@ public class ApplicationFilter implements Filter {
 		// 响应短地址的请求
 		ShortUrl url = getEbean().find(ShortUrl.class).where().eq("alias", alias).findUnique();
 		if (url != null) {
-			Utility.println("短地址请求 ：" + httpRequest.getServletPath() + " ...");
+			Utility.println("短地址：" + httpRequest.getServletPath() + " ...");
 			url.setClickCount(url.getClickCount() + 1);
 			getEbean().save(url);
 			httpRespone.sendRedirect(url.getOrginUrl());
@@ -52,7 +52,7 @@ public class ApplicationFilter implements Filter {
 
 		// 识别为api REST接口，进行安全验证
 		if (alias.startsWith("api/")) {
-			Utility.println("REST API接口请求：" + httpRequest.getServletPath() + " ...");
+			Utility.println("REST API接口：" + httpRequest.getServletPath() + " ...");
 			String apikey = httpRequest.getHeader("apikey");
 			String salt = httpRequest.getHeader("salt");
 			String authenticationToken = httpRequest.getHeader("authentication-token");
@@ -71,7 +71,7 @@ public class ApplicationFilter implements Filter {
 			return;
 		}
 
-		Utility.println("视图资源请求：" + httpRequest.getServletPath() + " ...");
+		Utility.println("静态资源：" + httpRequest.getServletPath() + " ...");
 		// 其他请求默认为视图，不进行安全验证
 		chain.doFilter(request, response);
 	}

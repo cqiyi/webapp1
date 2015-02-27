@@ -52,10 +52,7 @@
 			</div>
 		</form>
 		<div class="row error">
-			<div class="alert alert-danger alert-dismissible col-md-8 col-md-offset-2" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+			<div class="alert alert-danger col-md-8 col-md-offset-2" role="alert">
 				<strong>错误：</strong> <span id="err">短网址已存在，请重新输入。</span>
 			</div>
 		</div>
