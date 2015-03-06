@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="context" />
+	</bean>
+
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="org.sqlite.JDBC" />
+		<property name="jdbcUrl" value="jdbc:sqlite:svnlog.db" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="ebeanServerConfig" class="com.avaje.ebean.config.ServerConfig">
+		<property name="name" value="svnlog" />
+		<property name="dataSource" ref="dataSource" />
+	 <!-- 
+		<property name="ddlGenerate" value="true" />
+		<property name="ddlRun" value="true" />
+	 -->
+	</bean>
+
+	<bean id="ebean"
+		class="com.avaje.ebean.springsupport.factory.EbeanServerFactoryBean">
+		<property name="serverConfig" ref="ebeanServerConfig" />
+	</bean>
+
+	<context:component-scan base-package="com.hhwy.svnlog" />
+</beans>

@@ -8,8 +8,8 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="global" />
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="context" />
 	</bean>
 
 	<!-- 配置数据源 -->

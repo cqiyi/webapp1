@@ -1,0 +1,43 @@
+.header h1 {
+	padding: 30px;
+	font-family: 微软雅黑, 黑体;
+	font-weight: bold;
+	text-align: center;
+}
+
+#footer {
+	color: #aaa;
+	margin: 20px;
+	text-align: center
+}
+
+.icp {
+	margin-left:20px;
+}
+
+#footer a {
+	color: #aaa
+}
+h3, p{
+	text-align: center;
+}
+
+h3, .error{
+	margin-top:240px;
+}
+
+h3 .label{
+	padding:10px;
+}
+
+#message, .more, .error{
+	display:none;
+}
+
+.invalid input {
+	background-color: #fff0f0
+}
+
+.valid input {
+	background-color: #f0fff0;
+}

@@ -12,11 +12,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><s:message code="app_name" /></title>
+<title></title>
 <link rel="shortcut icon" href="<s:url value='/assets/favicon.ico' />" type="image/x-icon" />
 <link rel="stylesheet" href="<s:url value='/assets/font-awesome/css/font-awesome.min.css'/>">
 <link rel="stylesheet" href="<s:url value='/assets/bootstrap/css/bootstrap.min.css'/>">
-<link rel="stylesheet" href="<s:url value='/assets/default.css'/>">
+
+<link rel="stylesheet" href="<s:url value='/assets/kendo/styles/kendo.common.min.css'/>" />
+<link rel="stylesheet" href="<s:url value='/assets/kendo/styles/kendo.silver.min.css'/>" />
+
+    
 <script type="text/javascript">
 	var app = app || {
 		apikey : '${apikey}',
@@ -25,52 +29,10 @@
 	};
 </script>
 </head>
-<body>
-	<div class="header">
-		<h1>恒华短网址</h1>
-	</div>
-	<div class="container">
-		<form class="form-horizontal col-md-8 col-md-offset-2" action="<s:url value='/api/url'/>">
-			<div class="form-group">
-				<input type="text" id="orginUrl" name="orginUrl" placeholder="请输入您的网址 . . ." class="form-control">
-				<button type="button" class="btn btn-link" id="more">
-					<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span> 更多
-				</button>
-			</div>
-			<div class="form-group more">
-				<div class="input-group">
-					<div class="input-group-addon">
-						<b>http://hhwy.org/</b>
-					</div>
-					<input type="text" class="form-control" id="alias" name="alias" placeholder="短网址" style="width: 140px">
-				</div>
-			</div>
-			<div class="form-group pull-right">
-				<button class="btn btn-primary">
-					<span class="glyphicon glyphicon-random"></span> 生成短网址
-				</button>
-			</div>
-		</form>
-		<div class="row error">
-			<div class="alert alert-danger col-md-8 col-md-offset-2" role="alert">
-				<strong>错误：</strong> <span id="err">短网址已存在，请重新输入。</span>
-			</div>
-		</div>
-		<div id="message">
-			<h3>
-				<span class="label label-default">http://hhwy.org/Dx5L</span>
-			</h3>
-			<p>
-				<a class="btn btn-link" target="_blank"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> 新窗口打开
-				</a>
-			</p>
-		</div>
-	</div>
-	<div id="footer" class="navbar-fixed-bottom">
-		©2015 恒华科技 版权所有<span class="icp"><a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备10054994号-3</a></span>
-	</div>
+<body style="overflow:hidden">
+	 <div id="grid"></div>
 	<div style="display: none">
-		<script>
+		<script type="text/javascript">
 			var _hmt = _hmt || [];
 			(function() {
 				var hm = document.createElement("script");
@@ -80,44 +42,49 @@
 			})();
 		</script>
 	</div>
-
 </body>
 <script type="text/javascript" src="<s:url value='/assets/js/jquery-1.11.2.min.js' />"></script>
-<script type="text/javascript" src="<s:url value='/assets/bootstrap/js/bootstrap.min.js' />"></script>
 <script type="text/javascript" src="<s:url value='/assets/js/crypto-js/rollups/sha256.js' />"></script>
 <script type="text/javascript" src="<s:url value='/assets/js/core.js' />"></script>
+<script type="text/javascript" src="<s:url value='/assets/kendo/js/kendo.all.min.js' />"></script>
+<script type="text/javascript" src="<s:url value='/assets/kendo/js/messages/kendo.messages.zh-CN.min.js' />"></script>
 <script type="text/javascript">
-	$(function() {
-		$('[data-toggle="tooltip"]').tooltip();
-		$('#more').click(function() {
-			$(this).hide();
-			$('.more').show('slow');
-		});
-		
-		$('form:first').submit(function(){
-			if($('#orginUrl').val() == ''){
-				$('#message').hide();
-				$('.error').show().find('#err').html('网址不能为空');
-				return false;
-			}
-			var r = /^(http|https):\/\//i;
-			if(!r.test($('#orginUrl').val())){
-				$('#message').hide();
-				$('.error').show().find('#err').html('网址不合法');
-				return false;
-			}
-		}).rest(function(json) {
-			if (json.alias) {
-				$('.error').hide();
-				$('#message span.label').html(json.alias);
-				$('#message a').attr('href', json.alias);
-				$('#message').show();
-			} else {
-				$('#message').hide();
-				$('.error').show().find('#err').html(json.message);
-
-			}
-		});
-	});
+$(document).ready(function() {
+	$("#grid").kendoGrid({
+        dataSource: {
+        	transport: {
+                read: {
+                    url: "<s:url value='/sql/rawsql_select_svnlog_total' />",
+                    dataType: "json"
+                }
+            },
+            pageSize: 20
+        },
+        height: $(document).height() - 3,
+        scrollable: true,
+        sortable: true,
+        filterable: true,
+        pageable: {
+        	pageSizes: true,
+        },
+        columns: [
+            { field: "author", title: "帐号"},
+            { field: "displayName", title: "姓名"},
+            { field: "job", title: "岗位", width: "140px"},
+            {title: "提交数量（" + (new Date()).format('yyyy年M月d日）'),
+		        columns: [
+		            { field: "countA0", title: "今天"},
+		            { field: "countA1", title: "昨天"},
+		            { field: "countA2", title: "前天"},
+		            { field: "countA3", title: "三天前"},
+		            { field: "countA4", title: "四天前"},
+		            { field: "countA5", title: "五天前"},
+		            { field: "countA6", title: "六天前"},
+		            { field: "countA7", title: "七天前"},
+		            { field: "countA8", title: "八天前"},
+		            { field: "countA9", title: "九天前"}]
+            }]
+    });
+});
 </script>
 </html>
